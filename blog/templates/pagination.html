@@ -1,0 +1,35 @@
+<div class="pagination">
+    <span class="step-links">
+        <p class="pages">
+            <small>Page {{ page.number }} of {{ page.paginator.num_pages }}</small>
+    {% if page.has_previous %}
+    <a href="?page=1">&laquo;</a>
+    <a href="?page={{ page.previous_page_number }}">{{ page.previous_page_number }}</a>
+    {% endif %}
+        <span>{{ page.number }}</span>
+    {% if page.has_next %}
+    <a href="?page={{ page.next_page_number }}">{{ page.next_page_number }}</a>
+    <a href="?page={{ page.paginator.num_pages }}"> &raquo;</a>
+    {% endif %}
+        </p>
+    </span>
+    </div>
+
+
+    
+    {% comment %}
+
+        <p class="pages">
+            <small>Page {{ page.number }} of {{ page.paginator.num_pages }}</small>
+    {% if page.has_previous %}
+    <a href="?page=1">&raquo;</a>
+    <a href="?page={{ page.previous_page_number }}">{{ page.number - 1 }}</a>
+    {% endif %}
+        <span>{{ page.number }}</span>
+    {% if page.has_next %}
+    <a href="?page={{ page_obj.paginator.num_pages }}"> &laquo;</a>
+    {% endif %}
+        </p>
+
+        <p class="pages"><small>Page 1 of 2</small> <span>1</span> <a href="#">2</a> <a href="#">&raquo;</a></p>
+     {% endcomment %}

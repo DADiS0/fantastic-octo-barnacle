@@ -1,0 +1,56 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block imgs %}
+<a href="#"><img src="{{ post.photo.url }}" width="960" height="360" alt="" />
+{% endblock %}
+{% block content %}
+<div class="article">
+    <h2><span>{{ post.title }}</span></h2>
+    <div class="clr"></div>
+    <p>Posted by <a>{{ post.author }}</a> <span>&nbsp;&bull;&nbsp;</span></p>
+    <p>{{ post.body|linebreaks }} </p>
+    <p><a href="#"></a> <span>&nbsp;&bull;&nbsp;</span> {{ post.publish }} <span>&nbsp;&bull;&nbsp;</span></p>
+  </div>
+<p><a href="{% url "blog:post_share" post.id %}">Share this post</a></p>
+    {% with comments.count as total_comments %}
+<h2>
+{{ total_comments }} comment{{ total_comments|pluralize }}
+</h2>
+{% endwith %}
+{% for comment in comments %}
+<div class="comment"> <a href="#"><img src="{% static "images/userpic.gif" %}" width="40" height="40" alt="" class="userpic" /></a>
+    <p><a href="#">{{ comment.name }}</a> Says:<br />
+        {{ comment.created }}</p>
+    <p>{{ comment.body|linebreaks }}</p>
+  </div>
+{% empty %}
+<p>There are no comments.</p>
+{% endfor %}
+<div class="article">
+    <h2><span>Leave a</span> comment</h2>
+    <div class="clr"></div>
+    <form action="{% url "blog:post_comment" post.id %}" method="post" id="leavereply">
+        {% csrf_token %}
+      <ol>
+        <li>
+          <label for="name">Name (required)</label>
+          <input id="name" name="name" class="text" />
+        </li>
+        <li>
+          <label for="email">Email Address (required)</label>
+          <input id="email" name="email" class="text" />
+        </li>
+
+        <li>
+          <label for="message">Your Message</label>
+          <textarea id="message" name="body" rows="8" cols="50"></textarea>
+        </li>
+        <li>
+          <input  type="submit" value="Add comment" class="send" />
+          <div class="clr"></div>
+        </li>
+      </ol>
+    </form>
+  </div>
+{% endblock %}

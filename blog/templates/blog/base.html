@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "css/coin-slider.css" %}" />
+<script type="text/javascript" src="{% static "js/cufon-yui.js" %}"></script>
+<script type="text/javascript" src="{% static "js/cufon-aller-700.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery-1.4.2.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/script.js" %}"></script>
+<script type="text/javascript" src="{% static "js/coin-slider.min.js" %}"></script>
+</head>
+<body>
+<div class="main">
+  <div class="header">
+    <div class="header_resize">
+      <div class="searchform">
+        <form id="formsearch" name="formsearch" method="post" action="#">
+          <span>
+            <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Search our ste:" type="text" />
+          </span>
+          <input name="button_search" src="{% static "images/search.gif" %}" class="button_search" type="image" />
+        </form>
+      </div>
+      <div class="logo">
+        <h1><a><span>Blog</span> <small>Company Slogan Here</small></a></h1>
+      </div>
+      <div class="clr"></div>
+      <div class="menu_nav">
+        <ul>
+          <li class="active"><a href="#"><span>Home Page</span></a></li>
+          <li><a href="#"><span>Admin</span></a></li>
+        </ul>
+      </div>
+      <div class="clr"></div>
+      <div class="slider">
+        <div id="coin-slider">
+          {% block imgs %}
+          {% for post in posts %}
+          
+          <a href="#"><img src="{{ post.photo.url }}" width="960" height="360" alt="" /><span><big>{{ post.title }}</big><br />
+                 {{ post.body|truncatewords:70 }}</span>
+          {% endfor %}
+          {% endblock %}
+        </div>
+        <div class="clr"></div>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="content_resize">
+      <div class="mainbar">
+        {% block content %}{% endblock %}
+        {% block pagination %}{% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
